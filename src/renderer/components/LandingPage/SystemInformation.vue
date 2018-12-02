@@ -1,26 +1,52 @@
 <template>
   <div>
     <Button @click="loadfile()">上传</Button>
+    <Menu theme="light">
+                <Submenu name="1">
+                    <template slot="title">
+                        <Icon type="ios-paper" />
+                        {{PrjInfos}}
+                    </template>
+                    <MenuItem  v-for="(name,index) in NameItmes" :name="indexnames">{{index+1}}</MenuItem>
+                    <MenuItem name="1-2">评论管理</MenuItem>
+                    <MenuItem name="1-3">举报管理</MenuItem>
+                </Submenu>
+                <Submenu name="2">
+                    <template slot="title">
+                        <Icon type="ios-people" />
+                        用户管理
+                    </template>
+                    <MenuItem name="2-1">新增用户</MenuItem>
+                    <MenuItem name="2-2">活跃用户</MenuItem>
+                </Submenu>
+            </Menu>
+
   </div>
 </template>
 
 <script>
+  import fs from 'fs'
+  // import nedb from 'nedb'
   export default {
     data () {
       return {
-        electron: process.versions.electron,
-        name: this.$route.name,
-        node: process.versions.node,
-        path: this.$route.path,
-        platform: require('os').platform(),
-        vue: require('vue/package.json').version
+        NameItmes: '',
+        PrjInfos: '',
+        indexname: ''
       }
     },
     methods: {
       loadfile () {
         this.$electron.ipcRenderer.send('loadfile')
+        const _this = this
+        this.$electron.ipcRenderer.on('filepath', function (event, arg) {
+          console.log(arg[0])
+          let filejson = JSON.parse(fs.readFileSync(arg[0], 'utf-8'))
+          _this.NameItmes = filejson.item
+          _this.PrjInfos = filejson.info.name
+        })
       }
-    }
+    },
   }
 </script>
 

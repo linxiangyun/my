@@ -46,7 +46,9 @@ app.on('activate', () => {
   }
 })
 ipcMain.on('loadfile', function (event, arg) {
-  dialog.showOpenDialog({properties: ['openFile']}, function (file) { console.log(file) })
+  dialog.showOpenDialog({properties: ['openFile']}, function (file) {
+    event.sender.send('filepath', file)
+  })
 })
 /**
  * Auto Updater
