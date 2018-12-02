@@ -18,7 +18,6 @@
     },
     methods: {
       loadfile () {
-        console.log(1)
         this.$electron.ipcRenderer.send('loadfile')
       }
     }
