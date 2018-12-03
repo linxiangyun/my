@@ -1,19 +1,29 @@
 <template>
-  <div>
-    <Button @click="loadfile()">上传</Button>
-    <Menu theme="light">
-                <Submenu name="1">
+    <div class="layout">
+        <Layout>
+            <Header>
+                <Button @click="loadfile()">上传</Button>
+            </Header>
+            <Layout>
+                <Sider hide-trigger :style="{background: '#fff'}">
+                    <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
+                         <Submenu name="1">
                     <template slot="title">
                         <Icon type="ios-paper" />
                         {{PrjInfos}}
                     </template>
-                    <MenuItem  v-for="(name,index) in NameItmes" :name="indexnames">{{index+1}}</MenuItem>
-                    <MenuItem name="1-2">评论管理</MenuItem>
-                    <MenuItem name="1-3">举报管理</MenuItem>
+                    <MenuItem  v-for="(item,index) in NameItmes" :name="indexnames(index)">{{item.name}}</MenuItem>
                 </Submenu>
-            </Menu>
-
-  </div>
+                    </Menu>
+                </Sider>
+                <Layout :style="{padding: '0 24px 24px'}">
+                    <Content :style="contstyle">
+                        <Input search enter-button="Send" placeholder="Enter something..." />
+                    </Content>
+                </Layout>
+            </Layout>
+        </Layout>
+    </div>
 </template>
 
 <script>
@@ -24,7 +34,7 @@
       return {
         NameItmes: '',
         PrjInfos: '',
-        indexname: ''
+        contstyle: {padding: '24px', minHeight: '500px', background: '#fff', position: ''}
       }
     },
     methods: {
@@ -37,34 +47,32 @@
           _this.NameItmes = filejson.item
           _this.PrjInfos = filejson.info.name
         })
+      },
+      indexnames: function (index) {
+        return '1' + String(index + 1)
       }
-    },
+    }
   }
 </script>
 
 <style scoped>
-  .title {
-    color: #888;
-    font-size: 18px;
-    font-weight: initial;
-    letter-spacing: .25px;
-    margin-top: 10px;
-  }
-
-  .items { margin-top: 8px; }
-
-  .item {
-    display: flex;
-    margin-bottom: 6px;
-  }
-
-  .item .name {
-    color: #6a6a6a;
-    margin-right: 6px;
-  }
-
-  .item .value {
-    color: #35495e;
-    font-weight: bold;
-  }
-</style>
+.layout{
+    border: 1px solid #d7dde4;
+    position: absolute;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.layout-logo{
+    width: 100px;
+    height: 30px;
+    border-radius: 3px;
+    float: left;
+    position: relative;
+    top: 15px;
+    left: 20px;
+}
+.layout-nav{
+    width: 420px;
+    margin: 0 auto;
+    margin-right: 20px;
+}
