@@ -1,13 +1,11 @@
 <template>
   <div id="wrapper">
         <system-information></system-information>  
-        <!-- <New></New> -->
   </div>
 </template>
 
 <script>
   import SystemInformation from './LandingPage/SystemInformation'
-
   export default {
     name: 'landing-page',
     components: { SystemInformation },

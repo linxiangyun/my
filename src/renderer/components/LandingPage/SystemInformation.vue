@@ -1,9 +1,6 @@
 <template>
-    <div class="layout">
+    <div>
         <Layout>
-            <Header>
-                <Button @click="loadfile()">上传</Button>
-            </Header>
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
                     <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
@@ -18,7 +15,17 @@
                 </Sider>
                 <Layout :style="{padding: '0 24px 24px'}">
                     <Content :style="contstyle">
-                        <Input search enter-button="Send" placeholder="Enter something..." />
+                        <!-- <Button @click="loadfile()">上传</Button>
+                        <Input search enter-button="Send" placeholder="Enter something..." /> -->
+                        <Steps :current="current">
+                        <Step title="需求背景"></Step>
+                        <Step title="功能测试分析"></Step>
+                        <Step title="专项测试分析"></Step>
+                        <Step title="用户场景分析"></Step>
+                        <Step title="完成"></Step>
+                        </Steps>
+                        <Input v-model="TextValue" type="textarea" placeholder="需求背景描述" />
+                        <Button type="primary" @click="next">{{ButtonName}}</Button>
                     </Content>
                 </Layout>
             </Layout>
@@ -34,7 +41,11 @@
       return {
         NameItmes: '',
         PrjInfos: '',
-        contstyle: {padding: '24px', minHeight: '500px', background: '#fff', position: ''}
+        contstyle: {padding: '2px', minHeight: '500px', background: '#fff', position: ''},
+        current: 0,
+        ButtonName: '下一步',
+        TextValue: '',
+        TextList: []
       }
     },
     methods: {
@@ -50,29 +61,29 @@
       },
       indexnames: function (index) {
         return '1' + String(index + 1)
+      },
+      next () {
+        if (this.current === 3) {
+          this.current += 1
+          this.ButtonName = '提交'
+        } else if (this.current === 5) {
+
+        } else {
+          this.TextList[this.current] = this.TextValue
+          this.TextValue = ''
+          this.current += 1
+          console.log(this.TextList)
+        }
       }
     }
   }
 </script>
 
 <style scoped>
-.layout{
-    border: 1px solid #d7dde4;
-    position: absolute;
-    border-radius: 4px;
-    overflow: hidden;
-}
-.layout-logo{
-    width: 100px;
-    height: 30px;
-    border-radius: 3px;
-    float: left;
+.header {
     position: relative;
-    top: 15px;
-    left: 20px;
+    width: 1200px;
+    height: 100px
 }
-.layout-nav{
-    width: 420px;
-    margin: 0 auto;
-    margin-right: 20px;
-}
+
+</style>
