@@ -26,6 +26,7 @@
                         </Steps>
                         <Input v-model="TextValue" type="textarea" placeholder="需求背景描述" />
                         <Button type="primary" @click="next">{{ButtonName}}</Button>
+                        <router-view></router-view>
                     </Content>
                 </Layout>
             </Layout>

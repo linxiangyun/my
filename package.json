@@ -1,5 +1,5 @@
 {
-  "name": "my",
+  "name": "TestTools",
   "version": "0.0.1",
   "author": "linxiangyun <mumucloud.@outlook.com>",
   "description": "An electron-vue project",
@@ -19,7 +19,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "my",
+    "productName": "TestTools",
     "appId": "com.example.yourapp",
     "directories": {
       "output": "build"
